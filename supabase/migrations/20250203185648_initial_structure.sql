@@ -73,9 +73,3 @@ for select
 to public
 using (true);
 
-
-CREATE TRIGGER fetch_book_content AFTER INSERT ON public.books FOR EACH ROW EXECUTE FUNCTION supabase_functions.http_request('https://kxfbzqwdkpcskvaahiyj.supabase.co/functions/v1/fetch_book_content', 'POST', '{"Content-type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt4ZmJ6cXdka3Bjc2t2YWFoaXlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgxODkzNDAsImV4cCI6MjA1Mzc2NTM0MH0.Tb5XmV4EiR_jOIyrDUrJvkOlFs58O9lk6QdrTwIkk_A"}', '{}', '5000');
-
-CREATE TRIGGER text_analysis AFTER INSERT ON public.books FOR EACH ROW EXECUTE FUNCTION supabase_functions.http_request('https://kxfbzqwdkpcskvaahiyj.supabase.co/functions/v1/text_analysis', 'POST', '{"Content-type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt4ZmJ6cXdka3Bjc2t2YWFoaXlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgxODkzNDAsImV4cCI6MjA1Mzc2NTM0MH0.Tb5XmV4EiR_jOIyrDUrJvkOlFs58O9lk6QdrTwIkk_A"}', '{}', '5000');
-
-
