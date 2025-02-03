@@ -3,7 +3,7 @@ import { BookSearch } from './BookSearch';
 import { ListBooks } from './ListBooks';
 import { Book } from '../types';
 import { supabase } from '../lib/supabase';
-import { getPageNumbers } from '../utils/pagination';
+import { Pagination } from './Pagination';
 
 export function Home() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -61,53 +61,18 @@ export function Home() {
     <>
       <BookSearch onBookSaved={handleBookSaved} />
       {loading ? (
-        <div className="flex justify-center items-center py-8">
+        <div className="flex flex-col justify-center items-center py-8 gap-4">
           <div className="w-12 h-12 rounded-full border-4 border-gray-200 border-t-blue-600 animate-spin"></div>
+          <p className="text-gray-600">Loading books...</p>
         </div>
       ) : (
         <>
           <ListBooks books={books} />
-          {totalPages > 1 && (
-            <div className="flex justify-center gap-2 mt-4">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="px-2 py-1 bg-blue-600 text-white rounded disabled:bg-gray-300 hover:bg-blue-700"
-                aria-label="Previous page"
-              >
-                ←
-              </button>
-              
-              {getPageNumbers(currentPage, totalPages).map((page, index) => (
-                typeof page === 'number' ? (
-                  <button
-                    key={index}
-                    onClick={() => handlePageChange(page)}
-                    className={`px-3 py-1 rounded ${
-                      currentPage === page
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
-                  >
-                    {page}
-                  </button>
-                ) : (
-                  <span key={index} className="px-2">
-                    {page}
-                  </span>
-                )
-              ))}
-
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="px-2 py-1 bg-blue-600 text-white rounded disabled:bg-gray-300 hover:bg-blue-700"
-                aria-label="Next page"
-              >
-                →
-              </button>
-            </div>
-          )}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </>
       )}
     </>
