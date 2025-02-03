@@ -1,0 +1,83 @@
+[
+    {
+        "id": 48,
+        "gutenberg_id": 75231,
+        "metadata": {
+            "notes": [
+                "Reading ease score: 92.3 (5th grade). Very easy to read."
+            ],
+            "title": "A girl and her ways",
+            "author": "Le Feuvre, Amy, 1861-1929",
+            "summary": "\"A Girl and Her Ways\" by Amy Le Feuvre is a novel likely written during the late 19th century. The story revolves around the main character, Gentian, a spirited young woman navigating her newfound independence after her mother's death. As she settles into her life in England, she must confront societal expectations, her personal ambitions, and her relationships with men who wish to manage her life.  The opening portion of the book introduces us to Thorold Holt, a somewhat solitary man dealing with the aftermath of his cousin's death. He is approached by Miss Ward, a woman who seeks his assistance for Gentian, the daughter of a late friend, who is left without means after her mother's passing. Gentian is depicted as determined and fiercely independent, preferring to forge her own path in life. As Thorold learns more about Gentian's ambitions and her idea of driving a car for hire, he grapples with both concern for her future and his own feelings about taking on the responsibilities of familial ties. The stage is set for a dynamic exploration of Gentian's journey towards self-sufficiency and her relationships with those around her. (This is an automatically generated summary.)",
+            "category": "Text",
+            "language": "English",
+            "locClass": "PR: Language and Literatures: English literature",
+            "subjects": [
+                "Guardian and ward -- Fiction",
+                "England -- Social life and customs -- 20th century -- Fiction",
+                "Youth -- Conduct of life -- Fiction"
+            ],
+            "downloads": 1539,
+            "ebook-No.": "75231",
+            "readingEase": 92.3,
+            "releaseDate": "Jan 28, 2025",
+            "copyrightStatus": "Public domain in the USA.",
+            "originalPublication": "London: Ward, Lock & Co., Limited, 1925."
+        },
+        "created_at": "2025-02-03T16:27:33.668609+00:00"
+    },
+    {
+        "id": 37,
+        "gutenberg_id": 75222,
+        "metadata": {
+            "notes": [
+                "Reading ease score: 82.0 (6th grade). Easy to read."
+            ],
+            "title": "The Draycott murder mystery",
+            "author": "Thynne, Molly, 1881-1950",
+            "credits": "Brian Raiter",
+            "summary": "\"The Draycott Murder Mystery\" by Molly Thynne is a detective novel written in the late 1920s. The story unfolds in a small, isolated village in northern England, setting the stage for a suspenseful exploration of a murder case involving a woman found dead in a farmhouse. The central character so far is John Leslie, who discovers the body and becomes embroiled in the investigation, casting suspicion on himself.  The opening of the novel introduces a stormy evening in the village of Keys, where the violent weather sets a foreboding atmosphere as John Leslie returns home to find a woman dead in his sitting room. The narrative captures the initial tension as he grapples with the shocking sight, and it quickly escalates as the police arrive, leading to a series of inquiries into his alibi and the circumstances surrounding the woman's death. Not only does the discovery raise questions about John's innocence, but it also leaves readers wondering about the mysterious identity of the murdered woman, hinted to be connected to the local society. The unfolding drama promises intrigue and complexity, engaging readers with both the investigation and the interplay of trust among the characters. (This is an automatically generated summary.)",
+            "category": "Text",
+            "language": "English",
+            "locClass": "PR: Language and Literatures: English literature",
+            "subjects": [
+                "Detective and mystery stories",
+                "England -- Fiction",
+                "Murder -- Investigation -- Fiction"
+            ],
+            "downloads": 2045,
+            "ebook-No.": "75222",
+            "readingEase": 82,
+            "releaseDate": "Jan 27, 2025",
+            "copyrightStatus": "Public domain in the USA.",
+            "originalPublication": "Middlesex: Dean Street Press, 1928, reprint 2016."
+        },
+        "created_at": "2025-02-03T15:39:22.249621+00:00"
+    },
+    {
+        "id": 39,
+        "gutenberg_id": 75223,
+        "metadata": {
+            "notes": [
+                "Reading ease score: 50.7 (10th to 12th grade). Somewhat difficult to read."
+            ],
+            "title": "Avaruuden portilla Runoja",
+            "author": "Siikaniemi, Väinö, 1887-1932",
+            "credits": "Tapio Riikonen",
+            "summary": "\"Avaruuden portilla: Runoja\" by Väinö Siikaniemi is a collection of poetry written in the early 20th century. This work encompasses themes of nature, existence, and emotion, presenting profound reflections on the human experience against the backdrop of the cosmos. The collection features diverse poems that explore personal memories, seasonal changes, and cosmic connections, revealing the interplay of love, longing, and the beauty of the natural world.  The poems in \"Avaruuden portilla\" delve into various facets of life and the universe, showcasing the beauty of nature through vivid imagery and introspective language. For example, \"Auringon maja\" speaks to the unity and enchantment of the sunlit world, while \"Morsian yö\" personifies night as a beloved companion, bringing a sense of warmth and familiarity. Other poems, such as \"Aallon kuolema,\" reflect on ephemeral moments and the passage of time, illustrating the transient nature of existence. Siikaniemi's lyrical style invites readers to contemplate their own experiences and emotions, making this collection a deeply immersive and thought-provoking read. (This is an automatically generated summary.)",
+            "category": "Text",
+            "language": "Finnish",
+            "locClass": "PH: Language and Literatures: Finno-Ugrian and Basque languages and literatures",
+            "subjects": [
+                "Finnish poetry -- 20th century"
+            ],
+            "downloads": 257,
+            "ebook-No.": "75223",
+            "readingEase": 50.7,
+            "releaseDate": "Jan 27, 2025",
+            "copyrightStatus": "Public domain in the USA.",
+            "originalPublication": "Helsinki: Kust.Oy Kirja, 1929."
+        },
+        "created_at": "2025-02-03T15:45:45.643393+00:00"
+    }    
+]
