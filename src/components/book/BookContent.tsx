@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, AlertCircle } from 'lucide-react';
 import { Book } from '../../types';
 
 interface BookContentProps {
@@ -11,8 +11,10 @@ interface BookContentProps {
 export function BookContent({ book, currentPage, setCurrentPage, pageSize }: BookContentProps) {
   if (!book.content || book.content.length === 0) {
     return (
-      <div className="text-center text-gray-600 py-8">
-        Fetching book content please reload the page
+      <div className="flex flex-col items-center justify-center text-center text-gray-600 py-8 space-y-2">
+        <AlertCircle size={24} className="text-yellow-500" />
+        <p className="text-lg font-medium">Book content is loading...</p>
+        <p className="text-xs text-gray-500">Please wait and reload the page if this persists.</p>
       </div>
     );
   }

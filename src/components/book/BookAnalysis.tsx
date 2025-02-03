@@ -1,4 +1,4 @@
-import { Users, Languages, Heart, BookText, Code } from 'lucide-react';
+import { Users, Languages, Heart, BookText, Code, AlertCircle } from 'lucide-react';
 import { Book } from '../../types';
 
 interface BookAnalysisProps {
@@ -8,8 +8,10 @@ interface BookAnalysisProps {
 export function BookAnalysis({ book }: BookAnalysisProps) {
   if (!book.text_analysis || Object.keys(book.text_analysis).length === 0) {
     return (
-      <div className="flex items-center justify-center p-12 bg-white rounded-lg shadow-sm">
-        <p className="text-lg text-gray-600">Cooking text analysis, please reload the page</p>
+      <div className="flex flex-col items-center justify-center text-center text-gray-600 py-8 space-y-2">
+        <AlertCircle size={24} className="text-yellow-500" />
+        <p className="text-lg font-medium">Unveiling the story's secrets...</p>
+        <p className="text-xs text-gray-500">This usually takes a moment. If it persists, try refreshing the page.</p>
       </div>
     );
   }

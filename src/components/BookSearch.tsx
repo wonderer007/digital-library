@@ -7,14 +7,16 @@ interface BookSearchProps {
   onBookSaved: () => void;
 }
 
-export const BookSearch = ({ onBookSaved }: BookSearchProps) => {
+export function BookSearch({ onBookSaved }: BookSearchProps) {
   const [bookId, setBookId] = useState('');
   const [loading, setLoading] = useState(false);
   const [saveState, setSaveState] = useState<'idle' | 'loading' | 'success'>('idle');
   const [metaData, setMetaData] = useState<BookMetadata | null>(null);
   const [error, setError] = useState('');
+  const [showAllMetadata, setShowAllMetadata] = useState(false);
 
   const handleSearch = async (e: React.FormEvent) => {
+    setMetaData(null)
     e.preventDefault();
     if (!bookId.trim()) return;
 
@@ -59,10 +61,11 @@ export const BookSearch = ({ onBookSaved }: BookSearchProps) => {
       else {
       setSaveState('success');
       onBookSaved();
+      setBookId('');
+      setMetaData(null);
+      setBookId('');
+      setSaveState('idle');
       setTimeout(() => {
-        setMetaData(null);
-        setBookId('');
-        setSaveState('idle');
       }, 5000);
       }
     } catch (err) {
@@ -103,8 +106,15 @@ export const BookSearch = ({ onBookSaved }: BookSearchProps) => {
         </form>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg border border-red-100">
+          <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg border border-red-100 relative">
             {error}
+            <button
+              onClick={() => setError('')}
+              className="absolute top-2 right-2 text-red-700 hover:text-red-900"
+              aria-label="Dismiss error"
+            >
+              ×
+            </button>
           </div>
         )}
 
@@ -124,12 +134,11 @@ export const BookSearch = ({ onBookSaved }: BookSearchProps) => {
               >
                 {saveState === 'loading' ? (
                   <>
-                    <span className="animate-spin">⏳</span>
                     Saving...
                   </>
                 ) : saveState === 'success' ? (
                   <>
-                    ✅ Saved to Library
+                    Saved to Library
                   </>
                 ) : (
                   <>
@@ -171,9 +180,39 @@ export const BookSearch = ({ onBookSaved }: BookSearchProps) => {
                 </p>
               </div>
             )}
+
+            <div className="mb-4">
+              <button
+                onClick={() => setShowAllMetadata(!showAllMetadata)}
+                className="text-blue-600 hover:text-blue-700 font-medium"
+              >
+                {showAllMetadata ? 'Show Less' : 'Show More'}
+              </button>
+              
+              {showAllMetadata && (
+                <div className="mt-4 grid grid-cols-2 gap-4">
+                  {Object.entries(metaData)
+                    .filter(([key]) => !['title', 'summary', 'language', 'downloads', 'releaseDate', 'author'].includes(key))
+                    .map(([key, value]) => (
+                      value && (
+                        <div key={key}>
+                          <span className="text-gray-600 capitalize">
+                            {key.replace(/([A-Z])/g, ' $1').trim()}:
+                          </span>
+                          <span className="ml-2">
+                            {Array.isArray(value) 
+                              ? value.join(', ') 
+                              : String(value)}
+                          </span>
+                        </div>
+                      )
+                    ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
     </div>
   );
-};
+}
