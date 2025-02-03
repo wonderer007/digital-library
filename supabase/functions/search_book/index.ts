@@ -113,7 +113,7 @@ async function scrapeGutenbergMetadata(html: string): Promise<GutenbergMetadata>
                     break;
 
                 default:
-									metadata[key] = value;
+                    metadata[key] = value;
             }
         }
     });
@@ -134,7 +134,7 @@ export async function fetchAndScrapeGutenberg(ebookId: string | number): Promise
         return await scrapeGutenbergMetadata(html);
         
     } catch (error) {
-        throw new Error(`Failed to fetch or parse ebook metadata: ${error.message}`);
+        throw new Error(`Failed to fetch metadata: ${error.message}`);
     }
 }
 
