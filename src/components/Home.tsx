@@ -60,6 +60,9 @@ export function Home() {
   return (
     <>
       <BookSearch onBookSaved={handleBookSaved} />
+      <div className="w-full max-w-3xl mx-auto mt-8">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">Your Library</h2>
+      </div>
       {loading ? (
         <div className="flex flex-col justify-center items-center py-8 gap-4">
           <div className="w-12 h-12 rounded-full border-4 border-gray-200 border-t-blue-600 animate-spin"></div>

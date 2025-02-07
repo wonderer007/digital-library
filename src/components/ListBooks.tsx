@@ -21,7 +21,6 @@ export const ListBooks = ({ books }: ListBooksProps) => {
 
   return (
     <div className="w-full max-w-3xl mx-auto mt-8">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Your Library</h2>
       <div className="grid gap-4">
         {books.map((book) => (
           <div
