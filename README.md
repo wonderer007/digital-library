@@ -4,7 +4,7 @@ A digital library project built with React, TypeScript, and Vite that allows use
 
 ## Features
 
-- 📚 Search and fetch books from multiple sources
+- 📚 Search and fetch books from Gutenberg
 - 📖 Read books directly in the application
 - ⭐ Add books to your personal library
 - 🤖 AI-powered text analysis and insights
@@ -14,7 +14,7 @@ A digital library project built with React, TypeScript, and Vite that allows use
 
 - Node.js (LTS version recommended)
 - npm or yarn package manager
-- Supabase account and project setup
+- Supabase account
 
 ## Supabase Setup
 ### CLI Installation
@@ -25,6 +25,7 @@ A digital library project built with React, TypeScript, and Vite that allows use
 ```bash
 npx supabase db push --db-url postgres://postgres.[YOUR-PROJECT-ID]:[YOUR-DATABASE-PASSWORD]@aws-0-[YOUR-AWS-REGION].pooler.supabase.com:6543/postgres
 ```
+This will create database structure in your supabase using `supabase/migrations/`
 
 ### Edge Functions
 The `supabase/functions` directory contains the following edge functions that need to be deployed:
