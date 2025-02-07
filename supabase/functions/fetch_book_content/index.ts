@@ -7,7 +7,7 @@ const supabase = createClient(
 );
 
 async function fetchBookContent(book_id: number) {
-  const url = `https://www.gutenberg.org/files/${book_id}/${book_id}-0.txt`;
+  const url = `https://www.gutenberg.org/cache/epub/${book_id}/pg${book_id}.txt`
 
   try {
     const response = await fetch(url, {
