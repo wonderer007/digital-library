@@ -10,7 +10,7 @@ export function Home() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-  const booksPerPage = 10;
+  const booksPerPage = 2;
 
   useEffect(() => {
     fetchBooks();
