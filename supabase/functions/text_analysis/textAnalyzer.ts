@@ -21,11 +21,11 @@ function mergeCharacters(analyses: any[]) {
     characters.forEach((char: any) => {
       if (characterMap.has(char.name)) {
         const existing = characterMap.get(char.name);
-        existing.mentions += char.mentions / 3;
+        existing.mentions += char.mentions;
       } else {
         characterMap.set(char.name, { 
           ...char,
-          mentions: char.mentions / 3
+          mentions: char.mentions
         });
       }
     });

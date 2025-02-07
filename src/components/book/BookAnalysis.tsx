@@ -11,7 +11,7 @@ export function BookAnalysis({ book }: BookAnalysisProps) {
       <div className="flex flex-col items-center justify-center text-center text-gray-600 py-8 space-y-2">
         <AlertCircle size={24} className="text-yellow-500" />
         <p className="text-lg font-medium">Unveiling the story's secrets...</p>
-        <p className="text-xs text-gray-500">This usually takes a moment. If it persists, try refreshing the page.</p>
+        <p className="text-xs text-gray-500">This usually takes a moment. Try refreshing the page.</p>
       </div>
     );
   }
@@ -24,18 +24,21 @@ export function BookAnalysis({ book }: BookAnalysisProps) {
           <h3 className="text-xl font-semibold">Key Characters</h3>
         </div>
         <div className="grid gap-4">
-          {book.text_analysis.characters.map((character) => (
-            <div key={character.name} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <h4 className="font-semibold text-gray-800">{character.name}</h4>
-                <p className="text-sm text-gray-600">{character.significance}</p>
+          {book.text_analysis.characters
+            .filter(character => character.mentions > 1)
+            .sort((a, b) => b.mentions - a.mentions)
+            .map((character) => (
+              <div key={character.name} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <div>
+                  <h4 className="font-semibold text-gray-800">{character.name}</h4>
+                  <p className="text-sm text-gray-600">{character.significance}</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-semibold text-blue-600">{character.mentions}</div>
+                  <div className="text-xs text-gray-500">mentions</div>
+                </div>
               </div>
-              <div className="text-right">
-                <div className="text-lg font-semibold text-blue-600">{character.mentions}</div>
-                <div className="text-xs text-gray-500">mentions</div>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
 
@@ -58,11 +61,11 @@ export function BookAnalysis({ book }: BookAnalysisProps) {
           <div className="space-y-4">
             <div>
               <div className="text-sm text-gray-600">Unique Words</div>
-              <div className="text-lg font-semibold">{book.text_analysis.language.uniqueWords}</div>
+              <div className="text-lg font-semibold">{Math.round(Number(book.text_analysis.language.uniqueWords).toLocaleString())}</div>
             </div>
             <div>
               <div className="text-sm text-gray-600">Avg. Sentence Length</div>
-              <div className="text-lg font-semibold">{book.text_analysis.language.averageSentenceLength} words</div>
+              <div className="text-lg font-semibold">{Math.round(Number(book.text_analysis.language.averageSentenceLength))} words</div>
             </div>
           </div>
         </div>
@@ -94,7 +97,7 @@ export function BookAnalysis({ book }: BookAnalysisProps) {
                 <div key={type} className="relative pt-1">
                   <div className="flex items-center justify-between mb-1">
                     <div className="text-sm font-medium text-gray-600 capitalize">{type}</div>
-                    <div className="text-sm font-medium text-gray-600">{value}%</div>
+                    <div className="text-sm font-medium text-gray-600">{Number(value).toFixed(2)}%</div>
                   </div>
                   <div className="overflow-hidden h-2 bg-gray-200 rounded">
                     <div
@@ -158,7 +161,7 @@ export function BookAnalysis({ book }: BookAnalysisProps) {
                 <div key={type} className="relative pt-1">
                   <div className="flex items-center justify-between mb-1">
                     <div className="text-sm font-medium text-gray-600 capitalize">{type}</div>
-                    <div className="text-sm font-medium text-gray-600">{value}%</div>
+                    <div className="text-sm font-medium text-gray-600">{Number(value).toFixed(2)}%</div>
                   </div>
                   <div className="overflow-hidden h-2 bg-gray-200 rounded">
                     <div

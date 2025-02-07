@@ -12,10 +12,10 @@ Deno.serve(async (req) => {
     const { record } = await req.json();
     if (!record || !record.gutenberg_id) throw new Error('Invalid request data');
 
-    const text = await fetchBookContentFromURL(record.gutenberg_id);
+    const content = await fetchBookContentFromURL(record.gutenberg_id);
     const { error } = await supabase
       .from("books")
-      .update({ text })
+      .update({ content })
       .eq("gutenberg_id", record.gutenberg_id);
 
     if (error) throw new Error(`Error updating book: ${error.message}`);
