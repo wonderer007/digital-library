@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
-import { Book } from '../types';
-import { BookMetadata } from './book/BookMetadata';
-import { BookContent } from './book/BookContent';
-import { BookAnalysis } from './book/BookAnalysis';
+import { supabase } from '../../lib/supabase';
+import { Book } from '../../types';
+import { BookMetadata } from './BookMetadata';
+import { BookContent } from './BookContent';
+import { BookAnalysis } from './BookAnalysis';
 
 type TabType = 'metadata' | 'content' | 'analysis';
 
