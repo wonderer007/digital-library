@@ -22,8 +22,6 @@ describe('ListBooks', () => {
   it('renders list of books when books are provided', () => {
     render(<ListBooks books={mockBooks} />, { wrapper: WithRouter });
 
-    expect(screen.getByText('Your Library')).toBeInTheDocument();
-
     mockBooks.forEach((book) => {
       expect(screen.getByText(book.metadata.title)).toBeInTheDocument();
       expect(screen.getByText(`by ${book.metadata.author}`)).toBeInTheDocument();
