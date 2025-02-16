@@ -9,6 +9,8 @@ import { BookAnalysis } from './BookAnalysis';
 
 type TabType = 'metadata' | 'content' | 'analysis';
 
+const PAGE_SIZE = 2500;
+
 export function BookDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -16,7 +18,6 @@ export function BookDetails() {
   const [loading, setLoading] = useState(true);
   const [currentTab, setCurrentTab] = useState<TabType>('metadata');
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2500;
   
   useEffect(() => {
     const fetchBook = async () => {
@@ -55,7 +56,13 @@ export function BookDetails() {
   }
 
   if (!book) {
-    return null;
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-white">
+        <div className="space-y-4 text-center">
+          <p className="text-gray-600 text-lg">Book with ID {id} does not exist.</p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -118,7 +125,7 @@ export function BookDetails() {
             book={book}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            pageSize={pageSize}
+            pageSize={PAGE_SIZE}
           />
         ) : (
           <BookAnalysis book={book} />
