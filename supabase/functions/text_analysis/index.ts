@@ -2,23 +2,16 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 import { createClient } from 'jsr:@supabase/supabase-js@2'
 import { analyzeSelectiveText } from './textAnalyzer.ts'
 import { fetchBookContentFromURL } from '../_shared/bookFetcher.ts'
-import { z } from 'npm:zod'
 
 const supabase = createClient(
   Deno.env.get('SUPABASE_URL')!,
   Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 );
 
-const RequestSchema = z.object({
-  record: z.object({
-    gutenberg_id: z.string(),
-  }),
-});
-
 Deno.serve(async (req) => {
   try {
-    const jsonData = await req.json();
-    const { record } = RequestSchema.parse(jsonData);
+    const { record } = await req.json();
+    if (!record || !record.gutenberg_id) throw new Error('Invalid request data');
 
     const { data: bookData } = await supabase
       .from("books")
@@ -28,7 +21,7 @@ Deno.serve(async (req) => {
 
     const text = bookData?.content || await fetchBookContentFromURL(record.gutenberg_id);
     if (!text) throw new Error('Could not fetch book content');
-  
+
     const text_analysis = await analyzeSelectiveText(text);
     const { error } = await supabase
       .from("books")
