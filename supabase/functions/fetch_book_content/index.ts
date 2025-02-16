@@ -20,7 +20,7 @@ Deno.serve(async (req) => {
 
     if (error) throw new Error(`Error updating book: ${error.message}`);
 
-    return new Response(JSON.stringify({ success: true, book_id }), { status: 200 });
+    return new Response(JSON.stringify({ success: true, book_id: record.gutenberg_id }), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ success: false, error: error.message }), { status: 400 });
   }

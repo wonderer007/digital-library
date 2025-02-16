@@ -1,3 +1,5 @@
+import { Character, Language, Sentiment, Plot, Structure } from './types.ts'
+
 function getMostFrequent(arr: string[]): string {
   return arr.sort((a, b) =>
     arr.filter(v => v === a).length - arr.filter(v => v === b).length
@@ -13,49 +15,38 @@ function determineOverallSentiment(breakdown: { positive: number; negative: numb
   return "Negative";
 }
 
-function mergeCharacters(analyses: any[]) {
+function mergeCharacters(characters: Character[]) {
   const characterMap = new Map();
   
-  analyses.forEach((analysis) => {
-    const characters = JSON.parse(analysis.choices[0].message.content).characters;
-    characters.forEach((char: any) => {
-      if (characterMap.has(char.name)) {
-        const existing = characterMap.get(char.name);
-        existing.mentions += char.mentions;
-      } else {
-        characterMap.set(char.name, { 
-          ...char,
-          mentions: char.mentions
-        });
-      }
-    });
+  characters.forEach((character: Character) => {
+    if (characterMap.has(character.name)) {
+      const existing = characterMap.get(character.name);
+      existing.mentions += character.mentions;
+    } else {
+      characterMap.set(character.name, { 
+        ...character,
+        mentions: character.mentions
+      });
+    }
   });
   
   return Array.from(characterMap.values());
 }
 
-function aggregateLanguageStats(analyses: any[]) {
-  const combined = analyses.map(analysis => 
-    JSON.parse(analysis.choices[0].message.content).language
-  );
-  
+function aggregateLanguageStats(languages: Language[]) {
   return {
-    primary: combined[0].primary,
-    secondary: [...new Set(combined.flatMap(data => data.secondary))],
-    complexity: getMostFrequent(combined.map(data => data.complexity)),
-    uniqueWords: combined.reduce((sum, data) => 
+    primary: languages[0].primary,
+    secondary: [...new Set(languages.flatMap(data => data.secondary))],
+    complexity: getMostFrequent(languages.map(data => data.complexity)),
+    uniqueWords: languages.reduce((sum, data) => 
       sum + data.uniqueWords, 0) / 3,
-    averageSentenceLength: combined.reduce((sum, data) => 
+    averageSentenceLength: languages.reduce((sum, data) => 
       sum + data.averageSentenceLength, 0) / 3,
   };
 }
 
-function aggregateSentiment(analyses: any[]) {
-  const combined = analyses.map(analysis => 
-    JSON.parse(analysis.choices[0].message.content).sentiment
-  );
-  
-  const averageBreakdown = combined.reduce((acc, data) => ({
+function aggregateSentiment(sentiments: Sentiment[]) {  
+  const averageBreakdown = sentiments.reduce((acc, data) => ({
     negative: acc.negative + data.breakdown.negative / 3,
     neutral: acc.neutral + data.breakdown.neutral / 3,
     positive: acc.positive + data.breakdown.positive / 3
@@ -64,31 +55,23 @@ function aggregateSentiment(analyses: any[]) {
   return {
     overall: determineOverallSentiment(averageBreakdown),
     breakdown: averageBreakdown,
-    keyEmotions: [...new Set(combined.flatMap(data => data.keyEmotions))]
+    keyEmotions: [...new Set(sentiments.flatMap(data => data.keyEmotions))]
   };
 }
 
-function aggregatePlot(analyses: any[]) {
-  const combined = analyses.map(analysis => 
-    JSON.parse(analysis.choices[0].message.content).plot
-  );
-  
+function aggregatePlot(plots: Plot[]) {
   return {
     mainEvents: [
-      combined[0].mainEvents,
-      combined[1].mainEvents,
-      combined[2].mainEvents
+      plots[0].mainEvents,
+      plots[1].mainEvents,
+      plots[2].mainEvents
     ].join(' ... '),
-    themes: [...new Set(combined.flatMap(plot => plot.themes))]
+    themes: [...new Set(plots.flatMap(plot => plot.themes))]
   };
 }
 
-function aggregateSyntax(analyses: any[]) {
-  const combined = analyses.map(analysis => 
-    JSON.parse(analysis.choices[0].message.content).syntax
-  );
-  
-  const averageStructure = combined.reduce((acc, data) => ({
+function aggregateSyntax(structures: Structure[]) {  
+  const averageStructure = structures.reduce((acc, data) => ({
     simple: acc.simple + data.structure.simple / 3,
     compound: acc.compound + data.structure.compound / 3,
     complex: acc.complex + data.structure.complex / 3
@@ -96,17 +79,17 @@ function aggregateSyntax(analyses: any[]) {
 
   return {
     structure: averageStructure,
-    patterns: [...new Set(combined.flatMap(data => data.patterns))]
+    patterns: [...new Set(structures.flatMap(data => data.patterns))]
   };
 }
 
 export async function analyzeSelectiveText(text: string) {
-  const SAMPLE_SIZE = 5000;
+  const sampleSize = 5000;
   
-  const beginning = text.slice(0, SAMPLE_SIZE);
-  const middleStart = Math.floor((text.length - SAMPLE_SIZE) / 2);
-  const middle = text.slice(middleStart, middleStart + SAMPLE_SIZE);
-  const end = text.slice(-SAMPLE_SIZE);
+  const beginning = text.slice(0, sampleSize);
+  const middleStart = Math.floor((text.length - sampleSize) / 2);
+  const middle = text.slice(middleStart, middleStart + sampleSize);
+  const end = text.slice(-sampleSize);
 
   const beginningAnalysis = await analyzeText(beginning);
   await new Promise(resolve => setTimeout(resolve, 2000));
@@ -116,14 +99,16 @@ export async function analyzeSelectiveText(text: string) {
   
   const endAnalysis = await analyzeText(end);
 
-  const analyses = [beginningAnalysis, middleAnalysis, endAnalysis];
+  const analyses = [beginningAnalysis, middleAnalysis, endAnalysis].map(analysis => 
+    JSON.parse(analysis.choices[0].message.content)
+  );
 
   const aggregatedAnalysis = {
-    characters: mergeCharacters(analyses),
-    language: aggregateLanguageStats(analyses),
-    sentiment: aggregateSentiment(analyses),
-    plot: aggregatePlot(analyses),
-    syntax: aggregateSyntax(analyses)
+    characters: mergeCharacters(analyses.flatMap(analysis => analysis.characters)),
+    language: aggregateLanguageStats(analyses.flatMap(analysis => analysis.language)),
+    sentiment: aggregateSentiment(analyses.flatMap(analysis => analysis.sentiment)),
+    plot: aggregatePlot(analyses.flatMap(analysis => analysis.plot)),
+    syntax: aggregateSyntax(analyses.flatMap(analysis => analysis.syntax))
   };
 
   return aggregatedAnalysis;

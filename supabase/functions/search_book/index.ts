@@ -1,10 +1,15 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 import { DOMParser } from "jsr:@b-fuze/deno-dom";
+import { z } from 'npm:zod'
 
 export const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
+
+const RequestSchema = z.object({
+    book_id: z.string(),
+});
 
 interface GutenbergMetadata {
     author?: string;
@@ -143,8 +148,9 @@ Deno.serve(async (req) => {
     return new Response('ok', { headers: corsHeaders })
   }
 
-  const body = await req.json()
-  const data = await fetchAndScrapeGutenberg(body.book_id);
+  const jsonData = await req.json();
+  const { book_id } = RequestSchema.parse(jsonData);
+  const data = await fetchAndScrapeGutenberg(book_id);
 
   return new Response(
     JSON.stringify(data),

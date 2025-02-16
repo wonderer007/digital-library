@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, BookPlus } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { BookMetadata } from '../types';
+import { searchBook } from "../actions/searchBook";
 
 interface BookSearchProps {
   onBookSaved: () => void;
@@ -24,12 +25,12 @@ export function BookSearch({ onBookSaved }: BookSearchProps) {
     setError('');
     
     try {
-      const { data, error } = await supabase.functions.invoke('search_book', {
-        body: { book_id: bookId }
-      });
-      
-      if (error) throw error;
-      setMetaData(data);
+      const result = await searchBook(bookId);
+      if (result.error) {
+        throw new Error(result.error);
+      }
+
+      setMetaData(result);
     } catch (err) {
       setError('Failed to fetch book. Please try again.');
     } finally {
